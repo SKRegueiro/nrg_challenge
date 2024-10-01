@@ -17,9 +17,11 @@ La aplicación web esta orientada a ser usada únicamente en dispositivos de equ
 implementar la plataforma para dispositivos de móviles o tablets.
 
 
-- [ ] authenticate
+- [x] authenticate
+- [x] connect api (start with login)
+- [ ] retrieve session and add check
+- [ ] create authorized only pages
 - [ ] change password
-- [ ] connect api (start with login)
 - [ ] get contracts and display them
 - [ ] create different users views
 - [ ] apply correct styles
