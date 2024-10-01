@@ -17,6 +17,15 @@ La aplicación web esta orientada a ser usada únicamente en dispositivos de equ
 implementar la plataforma para dispositivos de móviles o tablets.
 
 
+- [ ] authenticate
+- [ ] change password
+- [ ] connect api (start with login)
+- [ ] get contracts and display them
+- [ ] create different users views
+- [ ] apply correct styles
+- [ ] token and next auth
+- [ ] i18n 
+
 ### Requisitos
 Las especificaciones del desarrollo de esta aplicación web para el frontend debe estar desarrollado mediante Next.JS
 y su ecosistema de paquetes. La API REST es proporcionada por el equipo y se facilitará información acerca de la misma para explicar como acceder a sus datos y las opciones que proporciona.
