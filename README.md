@@ -19,7 +19,8 @@ implementar la plataforma para dispositivos de móviles o tablets.
 
 - [x] authenticate
 - [x] connect api (start with login)
-- [ ] retrieve session and add check
+- [ ] create auth middleware  https://nextjs.org/docs/app/building-your-application/authentication
+- [ ] create data access layer
 - [ ] create authorized only pages
 - [ ] change password
 - [ ] get contracts and display them

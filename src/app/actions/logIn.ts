@@ -1,18 +1,23 @@
 import { signIn } from "next-auth/react";
+import { z } from "zod";
+
+const formSchema = z.object({
+  username: z.string().min(1).max(20).toLowerCase().trim(),
+  password: z.string().min(1).max(20).trim(),
+});
 
 export async function logIn(formData: FormData) {
-  //TODO: validate form fields
+  const { success, data } = formSchema.safeParse(Object.fromEntries(formData));
 
-  const result = await signIn("credentials", {
-    username: formData.get("username"),
-    password: formData.get("password"),
-    redirect: false,
-  });
+  if (!success) {
+    return { success: false, message: "Invalid form data" };
+  }
+
+  const result = await signIn("credentials", { ...data, redirect: false });
 
   if (result?.error) {
-    console.error("Login failed:", result.error);
-    return;
+    return { success: false, message: result.error };
   } else {
-    //TODO: put to success logic
+    return { success: true, message: "Login Successful" };
   }
 }

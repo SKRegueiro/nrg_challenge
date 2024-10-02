@@ -1,6 +1,5 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -12,21 +11,38 @@ import {
 import { Label } from "@/components/ui/label";
 import { logIn } from "@/app/actions/logIn";
 import { Input } from "@/components/ui/input";
+import { SubmitButton } from "@/app/ui/submitButton";
+import { useToast } from "@/hooks/use-toast";
+import { useRouter } from "next/navigation";
 
 export default function HomePage() {
+  const { toast } = useToast();
+  const router = useRouter();
+
+  const formAction = async (formData: FormData) => {
+    const { success, message } = await logIn(formData);
+
+    if (success) {
+      router.replace("/dashboard");
+    } else {
+      toast({
+        title: "Uh! Something went wrong.",
+        description: message,
+      });
+    }
+  };
+
   return (
     <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#2e026d] to-[#15162c] text-white">
-      <Card className={"min-h-[400px] min-w-96"}>
-        <CardHeader>
-          <CardTitle>Login</CardTitle>
-          <CardDescription>Introduce your credentials to login</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <form
-            className={"flex h-full w-full flex-col"}
-            action={logIn}
-            id={"login"}
-          >
+      <form action={formAction} id={"login"}>
+        <Card className={"min-w-96"}>
+          <CardHeader>
+            <CardTitle>Login</CardTitle>
+            <CardDescription>
+              Introduce your credentials to login
+            </CardDescription>
+          </CardHeader>
+          <CardContent className={"flex h-full w-full flex-col"}>
             <div
               className={
                 "flex w-full flex-col items-center justify-around gap-6"
@@ -34,26 +50,36 @@ export default function HomePage() {
             >
               <div className="flex w-full flex-col space-y-1.5">
                 <Label htmlFor={"username"}>Username </Label>
-                <Input id={"username"} type={"text"} name={"username"} />
+                <Input
+                  required
+                  minLength={1}
+                  maxLength={20}
+                  id={"username"}
+                  type={"text"}
+                  name={"username"}
+                />
               </div>
               <div className="flex w-full flex-col space-y-1.5">
                 <Label htmlFor={"password"}>Password </Label>
-                <Input id={"password"} type={"password"} name={"password"} />
+                <Input
+                  required
+                  minLength={1}
+                  maxLength={20}
+                  id={"password"}
+                  type={"password"}
+                  name={"password"}
+                  autoComplete="current-password"
+                />
               </div>
             </div>
-          </form>
-        </CardContent>
-        <CardFooter
-          className={"flex w-full flex-col items-center justify-center gap-12"}
-        >
-          <Button form={"login"}>Press me</Button>
-          <a
-            className={"cursor-pointer text-blue-500 underline accent-blue-500"}
+          </CardContent>
+          <CardFooter
+            className={"flex w-full flex-col items-center justify-center"}
           >
-            Forgot my password
-          </a>
-        </CardFooter>
-      </Card>
+            <SubmitButton />
+          </CardFooter>
+        </Card>
+      </form>
     </main>
   );
 }

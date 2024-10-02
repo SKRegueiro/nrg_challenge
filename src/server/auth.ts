@@ -2,6 +2,7 @@ import {
   getServerSession,
   type DefaultSession,
   type NextAuthOptions,
+  Session,
 } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { env } from "@/env";
@@ -29,7 +30,7 @@ declare module "next-auth" {
 export const authOptions: NextAuthOptions = {
   secret: env.NEXTAUTH_SECRET,
   session: {
-    strategy: "jwt", // Use JWT for session
+    strategy: "jwt",
   },
   providers: [
     CredentialsProvider({
@@ -57,7 +58,9 @@ export const authOptions: NextAuthOptions = {
             throw new Error("Invalid credentials");
           }
 
-          const user = await response.json();
+          //TODO: type this
+          const user = (await response.json()) as Session["user"];
+          console.log(user);
 
           if (user) {
             return user;
@@ -98,7 +101,7 @@ export const authOptions: NextAuthOptions = {
     },
   },
   pages: {
-    signIn: "/", // Custom sign-in page
+    signIn: "/",
   },
 };
 
