@@ -22,14 +22,9 @@ export default function HomePage() {
   const formAction = async (formData: FormData) => {
     const { success, message } = await logIn(formData);
 
-    if (success) {
-      router.replace("/dashboard");
-    } else {
-      toast({
-        title: "Uh! Something went wrong.",
-        description: message,
-      });
-    }
+    success
+      ? router.replace("/dashboard")
+      : toast({ title: "Uh! Something went wrong.", description: message });
   };
 
   return (
