@@ -7,7 +7,10 @@ export async function changePassword(formData: FormData) {
       body: JSON.stringify({ current, newPassword, confirm }),
     });
 
-    const data = await response.json();
+    const data = (await response.json()) as {
+      message: string;
+      success: boolean;
+    };
 
     if (!response.ok) {
       throw new Error(data.message || "Failed to change password");
@@ -18,7 +21,7 @@ export async function changePassword(formData: FormData) {
     console.log("el error", error);
     return {
       success: false,
-      message: error.message|| "An unknown error occurred",
+      message: "An unknown error occurred",
     };
   }
 }

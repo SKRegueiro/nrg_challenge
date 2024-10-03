@@ -21,14 +21,13 @@ const formSchema = z
 export async function POST(req: Request) {
   try {
     const session = await getServerAuthSession();
-console.log(session)
     if (!session) {
       return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
     }
 
     const data = await req.json();
-    formSchema.parse(data);
 
+    formSchema.parse(data);
     const response = await fetch(
       `${env.NEXT_PUBLIC_API_URL}/api/auth/change_password/`,
       {

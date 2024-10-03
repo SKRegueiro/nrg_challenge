@@ -22,7 +22,7 @@ export default function HomePage() {
   const formAction = async (formData: FormData) => {
     const { success, message } = await logIn(formData);
 
-    success
+    return success
       ? router.replace("/dashboard")
       : toast({ title: "Uh! Something went wrong.", description: message });
   };
@@ -52,6 +52,7 @@ export default function HomePage() {
                   id={"username"}
                   type={"text"}
                   name={"username"}
+                  autoComplete={"username"}
                 />
               </div>
               <div className="flex w-full flex-col space-y-1.5">

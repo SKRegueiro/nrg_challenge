@@ -12,6 +12,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import { useSession } from "next-auth/react";
 
 type Props = {
   onChangePassword: (formData: FormData) => void;
@@ -19,12 +20,13 @@ type Props = {
 };
 
 export default function PasswordSheet({ onLogOut, onChangePassword }: Props) {
+  const {data: session} = useSession();
   const user = {
-    username: "sergiocaminoregueiro",
-    id: "1",
-    groups: [1, 2, 3],
-    is_staff: true,
-  };
+    username: session?.user?.username,
+    id: session?.user?.id,
+    groups: session?.user?.groups,
+    is_staff: session?.user?.is_staff,
+  }
 
   const handleChangePassword = async (formData: FormData) => {
     onChangePassword(formData);
@@ -67,7 +69,7 @@ export default function PasswordSheet({ onLogOut, onChangePassword }: Props) {
             <div className="py-3 sm:grid sm:grid-cols-3 sm:gap-4">
               <dt className="text-sm font-medium text-gray-500">Groups</dt>
               <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
-                {user.groups.join(", ")}
+                {user.groups?.join(", ")}
               </dd>
             </div>
             <div className="py-3 sm:grid sm:grid-cols-3 sm:gap-4">
