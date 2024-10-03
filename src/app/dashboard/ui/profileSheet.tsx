@@ -41,7 +41,7 @@ export default function PasswordSheet({ onLogOut, onChangePassword }: Props) {
           <CircleUserRound size={28} absoluteStrokeWidth />
         </button>
       </SheetTrigger>
-      <SheetContent>
+      <SheetContent >
         <SheetHeader>
           <SheetTitle>Account Settings</SheetTitle>
           <SheetDescription>
@@ -80,6 +80,8 @@ export default function PasswordSheet({ onLogOut, onChangePassword }: Props) {
             </div>
           </dl>
         </div>
+
+        <h3 className="text-lg font-medium my-2">Change Password</h3>
         <form id={"change-password"} action={handleChangePassword}>
           <div className="space-y-2">
             <Label htmlFor="current">Current Password</Label>
@@ -102,7 +104,7 @@ export default function PasswordSheet({ onLogOut, onChangePassword }: Props) {
             Change Password
           </Button>
         </form>
-        <SheetFooter>
+        <SheetFooter >
           <SheetClose asChild>
             <Button variant="outline" onClick={handleLogout} className="w-full">
               Log Out
