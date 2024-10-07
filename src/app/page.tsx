@@ -14,6 +14,7 @@ import { Input } from "@/components/ui/input";
 import { SubmitButton } from "@/app/ui/submitButton";
 import { useToast } from "@/hooks/use-toast";
 import { useRouter } from "next/navigation";
+import routes from "@/constants/routes";
 
 export default function HomePage() {
   const { toast } = useToast();
@@ -23,7 +24,7 @@ export default function HomePage() {
     const { success, message } = await logIn(formData);
 
     return success
-      ? router.replace("/dashboard")
+      ? router.replace(routes.DASHBOARD)
       : toast({ title: "Uh! Something went wrong.", description: message });
   };
 

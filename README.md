@@ -22,20 +22,19 @@ implementar la plataforma para dispositivos de móviles o tablets.
 
 - [x] authenticate
 - [x] connect api (start with login)
-- [ ] create auth middleware https://nextjs.org/docs/app/building-your-application/authentication
+- [x] create auth middleware https://nextjs.org/docs/app/building-your-application/authentication
 - [ ] create data access layer
-- [ ] create authorized only pages
+- [x] create authorized only pages
 - [x] change password
 - [x] get contracts and display them
 - [ ] create different users views
-- [ ] apply correct styles
 - [X] token and next auth
 - [ ] i18n
 - [x] Autenticarse
 - [x] Cambiar contraseña
 - [x] Visualizar los contratos del sistema
-- [ ] Filtrar los contratos del sistema
-- [ ] Visualizar los detalles de un contrato seleccionado
+- [x] Filtrar los contratos del sistema
+- [x] Visualizar los detalles de un contrato seleccionado
 - [ ] Visualizar los counterparties del sistema
 
 ### Requisitos

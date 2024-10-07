@@ -1,6 +1,7 @@
 import { getServerSession, type NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { env } from "@/env";
+import routes from "@/constants/routes";
 
 /**
  * Module augmentation for `next-auth` types. Allows us to add custom properties to the `session`
@@ -84,7 +85,7 @@ export const authOptions: NextAuthOptions = {
     },
   },
   pages: {
-    signIn: "/",
+    signIn: routes.ROOT,
   },
 };
 

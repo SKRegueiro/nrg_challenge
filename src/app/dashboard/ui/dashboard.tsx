@@ -8,6 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { DealDetailsModal } from "@/app/dashboard/ui/dealDetailsModal";
 import type { DealDetails } from "@/app/dashboard/types/DealDetails";
+import getDealDetails from "@/app/dashboard/actions/getDealDetails";
 
 export default function DashboardClient({ deals }: { deals: Deal[] }) {
   const [filterBy, setFilterBy] = useState<string>("");
@@ -16,16 +17,10 @@ export default function DashboardClient({ deals }: { deals: Deal[] }) {
 
   const handleSeeDetails = async (dealId: string) => {
     try {
-      const response = await fetch(`/api/deals/details/${dealId}`);
-      const data = (await response.json()) as DealDetails;
+
+      const data = await getDealDetails(dealId);
       setSelectedDeal(data);
       setIsModalOpen(true);
-
-      if (response.ok) {
-        console.log("Deal Details:", data);
-      } else {
-        console.error("Failed to fetch deal details");
-      }
     } catch (error) {
       console.error("Error fetching deal details:", error);
     }
@@ -51,7 +46,7 @@ export default function DashboardClient({ deals }: { deals: Deal[] }) {
             .map((deal: Deal) => (
               <Card
                 key={deal.id}
-                className="w-[calc(20%-12.8px)] cursor-pointer rounded-lg border border-gray-200 bg-white p-4 shadow-lg"
+                className="w-[calc(20%-12.8px)] rounded-lg border border-gray-200 bg-white p-4 shadow-lg"
               >
                 <div className="flex justify-between">
                   <div>
