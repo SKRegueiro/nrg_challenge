@@ -25,7 +25,7 @@ export async function POST(req: Request) {
       return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
     }
 
-    const data = await req.json();
+    const data = (await req.json()) as FormData;
 
     formSchema.parse(data);
     const response = await fetch(

@@ -1,12 +1,13 @@
 import { getServerAuthSession } from "@/server/auth";
 import { env } from "@/env";
+import { type DealDetails } from "@/types/DealDetails";
 
 export async function GET(
   _req: Request,
   { params }: { params: { dealId: string } },
 ) {
   const session = await getServerAuthSession();
-  const { dealId } = params
+  const { dealId } = params;
 
   if (!session) {
     return new Response(JSON.stringify({ error: "Unauthorized" }), {
@@ -33,14 +34,14 @@ export async function GET(
       throw new Error("Failed to fetch deal details");
     }
 
-    const dealDetails = await response.json();
+    const dealDetails = (await response.json()) as DealDetails;
     return new Response(JSON.stringify(dealDetails), {
       status: 200,
       headers: {
         "Content-Type": "application/json",
       },
     });
-  } catch (error) {
+  } catch (_error) {
     return new Response(JSON.stringify({ error: "Internal server error" }), {
       status: 500,
       headers: {

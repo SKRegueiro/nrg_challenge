@@ -1,7 +1,13 @@
-import { getServerSession, type NextAuthOptions } from "next-auth";
+import {
+  getServerSession,
+  type NextAuthOptions,
+  type Session,
+  type User,
+} from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { env } from "@/env";
 import routes from "@/constants/routes";
+import type { JWT } from "next-auth/jwt";
 
 /**
  * Module augmentation for `next-auth` types. Allows us to add custom properties to the `session`
@@ -23,6 +29,16 @@ declare module "next-auth" {
   }
 }
 
+declare module "next-auth/jwt" {
+  interface JWT {
+    id: string;
+    username: string;
+    groups: number[];
+    is_staff: boolean;
+    token: string;
+  }
+}
+
 export const authOptions: NextAuthOptions = {
   secret: env.NEXTAUTH_SECRET,
   session: {
@@ -35,6 +51,7 @@ export const authOptions: NextAuthOptions = {
         username: { label: "Username", type: "text" },
         password: { label: "Password", type: "password" },
       },
+
       async authorize(credentials) {
         const response = await fetch(
           `${env.NEXT_PUBLIC_API_URL}/api/auth/login/`,
@@ -54,13 +71,13 @@ export const authOptions: NextAuthOptions = {
           throw new Error("Invalid credentials");
         }
 
-        const user = await response.json();
+        const user = (await response.json()) as User;
         return user || null;
       },
     }),
   ],
   callbacks: {
-    async jwt({ token, user }) {
+    async jwt({ token, user }: { token: JWT; user: User | null }) {
       if (user) {
         token.id = user.id;
         token.username = user.username;
@@ -71,17 +88,15 @@ export const authOptions: NextAuthOptions = {
       return token;
     },
 
-    session: ({ session, token }) => {
-      return {
-        ...session,
-        user: {
-          id: token.sub,
-          username: token.username,
-          groups: token.groups,
-          is_staff: token.is_staff,
-          token: token.token,
-        },
+    async session({ session, token }: { session: Session; token: JWT }) {
+      session.user = {
+        id: token.id,
+        username: token.username,
+        groups: token.groups,
+        is_staff: token.is_staff,
+        token: token.token,
       };
+      return session;
     },
   },
   pages: {
