@@ -14,8 +14,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import Deal from "@/types/Deal";
-import { DealDetails } from "@/types/DealDetails";
+import type Deal from "@/types/Deal";
+import type { DealDetails } from "@/types/DealDetails";
 
 type Counterparty = {
   id: number;
@@ -109,7 +109,7 @@ export default function DashboardClient({ deals, counterparties }: Props) {
                 </div>
                 <div className="mt-2 flex-grow">
                   <p>Counterparty: {deal.counterparty.name}</p>
-                  <p>Counterparty Type: {getCounterpartyType(counterparties.find(cp => cp.id === deal.counterparty.id)?.type || 0)}</p>
+                  <p>Counterparty Type: {getCounterpartyType(counterparties.find(cp => cp.id === deal.counterparty.id)?.type ?? 0)}</p>
                   <p>
                     Volume: {deal.volume} {deal.measurement_unit}
                   </p>
