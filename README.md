@@ -20,23 +20,6 @@ Además de los usuarios de negocio, existe un segundo tipo de usuario denominado
 La aplicación web esta orientada a ser usada únicamente en dispositivos de equipos personales, no es necesario
 implementar la plataforma para dispositivos de móviles o tablets.
 
-- [x] authenticate
-- [x] connect api (start with login)
-- [x] create auth middleware https://nextjs.org/docs/app/building-your-application/authentication
-- [ ] create data access layer
-- [x] create authorized only pages
-- [x] change password
-- [x] get contracts and display them
-- [ ] create different users views
-- [X] token and next auth
-- [ ] i18n
-- [x] Autenticarse
-- [x] Cambiar contraseña
-- [x] Visualizar los contratos del sistema
-- [x] Filtrar los contratos del sistema
-- [x] Visualizar los detalles de un contrato seleccionado
-- [ ] Visualizar los counterparties del sistema
-
 ### Requisitos
 
 Las especificaciones del desarrollo de esta aplicación web para el frontend debe estar desarrollado mediante Next.JS

@@ -1,8 +1,4 @@
-type Counterparty = {
-  id: number;
-  name: string;
-  type: number;
-};
+import Counterparty from "@/types/Counterparty";
 
 type Deal = {
   id: string;

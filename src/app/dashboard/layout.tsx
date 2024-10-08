@@ -11,6 +11,7 @@ export default function Layout({
   const handleChangePassword = async (formData: FormData) => {
     const { message, success } = await changePassword(formData);
 
+
     return success
       ? toast({ title: "Password changed", description: message })
       : toast({

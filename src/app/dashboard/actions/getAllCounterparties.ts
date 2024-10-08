@@ -1,12 +1,11 @@
 import { env } from "@/env";
 import { getServerAuthSession } from "@/server/auth";
-import type Deal from "@/types/Deal";
 
-export default async function getAllDeals(): Promise<Deal[]> {
+export default async function getAllCounterparties(): Promise<any[]> {
   const session = await getServerAuthSession();
 
-  const dealsResponse = await fetch(
-    env.NEXT_PUBLIC_API_URL + "/api/deals/?scenario=datatable",
+  const counterparties = await fetch(
+    env.NEXT_PUBLIC_API_URL + "/api/deals/counterparties",
     {
       method: "GET",
       headers: {
@@ -16,5 +15,5 @@ export default async function getAllDeals(): Promise<Deal[]> {
     },
   );
 
-  return (await dealsResponse.json()) as Deal[];
+  return (await counterparties.json()) as any[];
 }

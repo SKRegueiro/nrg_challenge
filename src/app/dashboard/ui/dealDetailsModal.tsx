@@ -2,7 +2,7 @@
 
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog"
 import { Badge } from "@/components/ui/badge"
-import type { DealDetails } from "@/app/dashboard/types/DealDetails";
+import type { DealDetails } from "@/types/DealDetails";
 
 type DealDetailsProps = {
   deal: DealDetails | null;
