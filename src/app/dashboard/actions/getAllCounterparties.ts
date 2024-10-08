@@ -1,7 +1,8 @@
 import { env } from "@/env";
 import { getServerAuthSession } from "@/server/auth";
+import type Counterparty from "@/types/Counterparty";
 
-export default async function getAllCounterparties(): Promise<any[]> {
+export default async function getAllCounterparties(): Promise<Counterparty[]> {
   const session = await getServerAuthSession();
 
   const counterparties = await fetch(
@@ -15,5 +16,5 @@ export default async function getAllCounterparties(): Promise<any[]> {
     },
   );
 
-  return (await counterparties.json()) as any[];
+  return (await counterparties.json()) as Counterparty[];
 }

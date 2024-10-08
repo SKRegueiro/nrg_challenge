@@ -32,7 +32,8 @@ export default function DashboardClient({ deals, counterparties }: Props) {
   const [filterBy, setFilterBy] = useState<string>("");
   const [selectedDeal, setSelectedDeal] = useState<DealDetails | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedCounterparty, setSelectedCounterparty] = useState<string>("all");
+  const [selectedCounterparty, setSelectedCounterparty] =
+    useState<string>("all");
 
   const handleSeeDetails = async (dealId: string) => {
     try {
@@ -49,8 +50,12 @@ export default function DashboardClient({ deals, counterparties }: Props) {
   };
 
   const filteredDeals = deals.filter((deal: Deal) => {
-    const codeMatch = deal.code.toLowerCase().includes(filterBy.toLowerCase().trim());
-    const counterpartyMatch = selectedCounterparty === "all" || deal.counterparty.id.toString() === selectedCounterparty;
+    const codeMatch = deal.code
+      .toLowerCase()
+      .includes(filterBy.toLowerCase().trim());
+    const counterpartyMatch =
+      selectedCounterparty === "all" ||
+      deal.counterparty.id.toString() === selectedCounterparty;
     return codeMatch && counterpartyMatch;
   });
 
@@ -84,13 +89,13 @@ export default function DashboardClient({ deals, counterparties }: Props) {
             />
           </div>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
           {filteredDeals.map((deal: Deal) => (
             <Card
               key={deal.id}
               className="rounded-lg border border-gray-200 bg-white p-4 shadow-lg"
             >
-              <div className="flex flex-col h-full">
+              <div className="flex h-full flex-col">
                 <div className="flex justify-between">
                   <div>
                     <h2 className="text-lg font-bold">{deal.code}</h2>
@@ -109,7 +114,14 @@ export default function DashboardClient({ deals, counterparties }: Props) {
                 </div>
                 <div className="mt-2 flex-grow">
                   <p>Counterparty: {deal.counterparty.name}</p>
-                  <p>Counterparty Type: {getCounterpartyType(counterparties.find(cp => cp.id === deal.counterparty.id)?.type ?? 0)}</p>
+                  <p>
+                    Counterparty Type:{" "}
+                    {getCounterpartyType(
+                      counterparties.find(
+                        (cp) => cp.id === deal.counterparty.id,
+                      )?.type ?? 0,
+                    )}
+                  </p>
                   <p>
                     Volume: {deal.volume} {deal.measurement_unit}
                   </p>
